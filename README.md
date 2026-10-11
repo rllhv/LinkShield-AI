@@ -24,20 +24,26 @@ An AI-powered web platform designed to analyze and investigate suspicious URLs. 
 ---
 
 ## 🧱 Architecture & Flow
-Targeted URL ──▶ Inspection Pipeline
-│
-┌──────────────┼──────────────┐
-▼              ▼              ▼
-VirusTotal      urlscan.io    Safe Browsing
-│              │              │
-└──────────────┼──────────────┘
-│
-▼
-Google Gemini
-(Bilingual Threat Intel)
-│
-▼
-Unified Incident Report & UI
+
+```mermaid
+flowchart TD
+    A[Targeted URL] --> B[Inspection Pipeline]
+    
+    subgraph Engines [Parallel Intelligence Engines]
+        C[VirusTotal]
+        D[urlscan.io]
+        E[Google Safe Browsing]
+    end
+    
+    B --> C
+    B --> D
+    B --> E
+    
+    C --> F[Google Gemini AI<br/>Bilingual Threat Analysis]
+    D --> F
+    E --> F
+    
+    F --> G[Unified Incident Report & UI]
 ---
 
 ## 🛠️ Technical Stack
