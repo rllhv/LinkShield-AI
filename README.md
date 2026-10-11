@@ -22,7 +22,6 @@ An AI-powered web platform designed to analyze and investigate suspicious URLs. 
 - **Security Intel Board** — Moderated community feed for sharing emerging threat findings and advisories.
 
 
-````markdown
 ## 🧱 Architecture & Flow
 
 ```text
@@ -40,8 +39,7 @@ Targeted URL ──▶ Inspection Pipeline
                        │
                        ▼
           Unified Incident Report & UI
----
-
+```
 ## 🛠️ Technical Stack
 
 - **Backend:** Laravel 13, PHP 8.3+, Laravel Sanctum
