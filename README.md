@@ -21,29 +21,25 @@ An AI-powered web platform designed to analyze and investigate suspicious URLs. 
 - **Automated Incident Briefings** — Generates exportable security analysis reports formatted with full Arabic and English support.
 - **Security Intel Board** — Moderated community feed for sharing emerging threat findings and advisories.
 
----
 
+````markdown
 ## 🧱 Architecture & Flow
 
-```mermaid
-flowchart TD
-    A[Targeted URL] --> B[Inspection Pipeline]
-    
-    subgraph Engines [Parallel Intelligence Engines]
-        C[VirusTotal]
-        D[urlscan.io]
-        E[Google Safe Browsing]
-    end
-    
-    B --> C
-    B --> D
-    B --> E
-    
-    C --> F[Google Gemini AI<br/>Bilingual Threat Analysis]
-    D --> F
-    E --> F
-    
-    F --> G[Unified Incident Report & UI]
+```text
+Targeted URL ──▶ Inspection Pipeline
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+   VirusTotal      urlscan.io   Safe Browsing
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+                       ▼
+                 Google Gemini
+            (Bilingual Threat Intel)
+                       │
+                       ▼
+          Unified Incident Report & UI
 ---
 
 ## 🛠️ Technical Stack
