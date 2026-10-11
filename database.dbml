@@ -1,0 +1,58 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id integer [primary key]
+  name varchar
+  email varchar [unique]
+  email_verified_at timestamp [null]
+  password varchar
+  role varchar [note: "enum: 'admin', 'user'"]
+  remember_token varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table scans {
+  id integer [primary key]
+  user_id integer [null]
+  url varchar
+  results json [null]
+  search_count integer [default: 1]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table posts {
+  id integer [primary key]
+  user_id integer
+  title varchar
+  content text
+  status varchar [note: "enum: 'pending', 'approved', 'rejected'"]
+  category varchar [default: 'knowledge']
+  link varchar [null]
+  image_path varchar [null]
+  is_anonymous boolean [default: false]
+  admin_evaluation varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref scans_user_id: scans.user_id > users.id // many-to-one
+
+Ref posts_user_id: posts.user_id > users.id // many-to-one
+
+Records users(id, name, email, email_verified_at, password, role, remember_token, created_at, updated_at) {
+  1, 'Alice Smith', 'alice@example.com', null, 'hashedpassword1', 'admin', null, '2026-05-01 10:00:00', '2026-05-01 10:00:00'
+  2, 'Bob Johnson', 'bob@example.com', null, 'hashedpassword2', 'user', null, '2026-05-02 11:30:00', '2026-05-02 11:30:00'
+}
+
+Records scans(id, user_id, url, results, search_count, created_at, updated_at) {
+  1, 1, 'https://example.com', '{"status": "safe"}', 5, '2026-05-10 14:00:00', '2026-05-10 14:00:00'
+  2, 2, 'https://suspicious-site.com', '{"status": "warning", "details": "Phishing detected"}', 2, '2026-05-12 09:15:00', '2026-05-12 09:15:00'
+}
+
+Records posts(id, user_id, title, content, status, category, link, image_path, is_anonymous, admin_evaluation, created_at, updated_at) {
+  1, 1, 'Welcome to LinkeShield', 'This is the first post!', 'approved', 'announcement', null, null, false, null, '2026-05-15 08:00:00', '2026-05-15 08:00:00'
+  2, 2, 'Is this link safe?', 'I received an email with this link...', 'pending', 'question', 'http://weird-link.net', null, false, null, '2026-05-16 10:20:00', '2026-05-16 10:20:00'
+}
